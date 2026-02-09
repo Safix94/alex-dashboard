@@ -1,0 +1,106 @@
+/* Presence Component Animations */
+
+@keyframes presence-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7),
+                0 0 0 4px rgba(251, 191, 36, 0.3);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.5),
+                0 0 0 8px rgba(251, 191, 36, 0.1);
+  }
+}
+
+@keyframes presence-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-12px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes presence-sparkle {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 0px rgba(147, 112, 219, 0));
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 12px rgba(147, 112, 219, 0.8));
+  }
+  100% {
+    filter: brightness(1) drop-shadow(0 0 0px rgba(147, 112, 219, 0));
+  }
+}
+
+@keyframes presence-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Status-specific animations */
+.presence-emoji--ready {
+  animation: presence-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.presence-emoji--working {
+  animation: presence-bounce 0.5s ease-in-out infinite;
+}
+
+.presence-emoji--thinking {
+  animation: presence-sparkle 2s ease-in-out infinite;
+}
+
+.presence-emoji--idle {
+  opacity: 0.6;
+  animation: none;
+}
+
+.presence-emoji--error {
+  animation: presence-shake 0.3s cubic-bezier(0.36, 0, 0.66, 1) infinite;
+  filter: hue-rotate(-10deg) saturate(1.5);
+}
+
+/* Glow ring animations */
+.presence-glow--ready {
+  animation: presence-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5),
+              inset 0 0 20px rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.6);
+}
+
+.presence-glow--working {
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.8),
+              inset 0 0 20px rgba(251, 191, 36, 0.2);
+  border-color: rgba(251, 191, 36, 0.8);
+}
+
+.presence-glow--thinking {
+  animation: presence-sparkle 2s ease-in-out infinite;
+  box-shadow: 0 0 25px rgba(147, 112, 219, 0.6),
+              inset 0 0 20px rgba(147, 112, 219, 0.1);
+  border-color: rgba(147, 112, 219, 0.6);
+}
+
+.presence-glow--idle {
+  box-shadow: 0 0 10px rgba(156, 163, 175, 0.3),
+              inset 0 0 10px rgba(156, 163, 175, 0.05);
+  border-color: rgba(156, 163, 175, 0.3);
+}
+
+.presence-glow--error {
+  animation: presence-shake 0.3s cubic-bezier(0.36, 0, 0.66, 1) infinite;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.7),
+              inset 0 0 20px rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.8);
+}

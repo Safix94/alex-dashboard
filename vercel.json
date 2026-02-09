@@ -1,0 +1,44 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "env": [
+    {
+      "key": "NEXT_PUBLIC_OPENCLAW_API_URL",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "NEXT_PUBLIC_STATUS_POLL_INTERVAL",
+      "value": "15000"
+    },
+    {
+      "key": "NEXT_PUBLIC_TASKS_POLL_INTERVAL",
+      "value": "30000"
+    }
+  ]
+}

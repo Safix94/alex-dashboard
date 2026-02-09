@@ -51,24 +51,28 @@
 /* Status-specific animations */
 .presence-emoji--ready {
   animation: presence-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
 }
 
 .presence-emoji--working {
   animation: presence-bounce 0.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.7));
 }
 
 .presence-emoji--thinking {
   animation: presence-sparkle 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(147, 112, 219, 0.7));
 }
 
 .presence-emoji--idle {
-  opacity: 0.6;
+  opacity: 0.5;
   animation: none;
+  filter: drop-shadow(0 0 4px rgba(156, 163, 175, 0.4)) grayscale(0.5);
 }
 
 .presence-emoji--error {
   animation: presence-shake 0.3s cubic-bezier(0.36, 0, 0.66, 1) infinite;
-  filter: hue-rotate(-10deg) saturate(1.5);
+  filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)) hue-rotate(-10deg) saturate(1.5);
 }
 
 /* Glow ring animations */

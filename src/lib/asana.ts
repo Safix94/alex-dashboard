@@ -52,7 +52,13 @@ async function asanaFetch<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 function normalize(s: string): string {
-  return s.trim().toLowerCase();
+  // Remove emoji at the start and all variation selectors/zero-width joiners
+  // Then trim and lowercase
+  return s
+    .replace(/^[\s\p{Emoji}\p{Emoji_Component}]+/gu, '')
+    .replace(/[\u{FE0E}\u{FE0F}\u{200D}]/gu, '') // variation selectors and joiners
+    .trim()
+    .toLowerCase();
 }
 
 function matchSection(sections: Array<{ gid: string; name: string }>, names: string[]) {
@@ -72,7 +78,7 @@ export async function getProjectSectionMap(projectGid: string): Promise<SectionM
 
   const todo = matchSection(sections, ["Nog te doen", "To Do", "Todo"]);
   const inprogress = matchSection(sections, ["Bezig", "In Progress"]);
-  const done = matchSection(sections, ["Done", "Klaar", "Afgewerkt"]);
+  const done = matchSection(sections, ["Done", "Klaar", "Afgewerkt", "Afgerond"]);
   const archive = matchSection(sections, [
     "Niet doen",
     "Niet doen (afgekeurd)",
@@ -84,7 +90,7 @@ export async function getProjectSectionMap(projectGid: string): Promise<SectionM
   if (!todo || !inprogress || !done || !archive) {
     const names = sections.map((s) => s.name).join(", ");
     throw new Error(
-      `Required Asana sections not found. Found sections: [${names}]. Expected names include: todo=[Nog te doen|To Do|Todo], inprogress=[Bezig|In Progress], done=[Done|Klaar|Afgewerkt], archive=[Niet doen|Niet doen (afgekeurd)|Afgekeurd|Archive|Archief]`
+      `Required Asana sections not found. Found sections: [${names}]. Expected names include: todo=[Nog te doen|To Do|Todo], inprogress=[Bezig|In Progress], done=[Done|Klaar|Afgewerkt|Afgerond], archive=[Niet doen|Niet doen (afgekeurd)|Afgekeurd|Archive|Archief]`
     );
   }
 

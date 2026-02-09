@@ -2,8 +2,9 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-// Database path - use data directory in workspace
-const dbDir = process.env.DB_PATH || path.join(process.cwd(), '.data');
+// Database path — use /tmp on Vercel (serverless, writable), .data locally
+const isVercel = !!process.env.VERCEL;
+const dbDir = process.env.DB_PATH || (isVercel ? '/tmp' : path.join(process.cwd(), '.data'));
 const dbPath = path.join(dbDir, 'alex-dashboard.db');
 
 // Ensure directory exists

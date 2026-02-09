@@ -34,7 +34,7 @@ export default function Dashboard() {
         {/* Recent Activity */}
         <div className="bg-card border border-border rounded-lg p-6">
           <h2 className="text-2xl font-bold text-foreground">Recent Activity</h2>
-          <p className="text-muted-foreground mt-2">No activity yet. Phase 2 will add real data.</p>
+          <p className="text-muted-foreground mt-2">No activity yet. Phase 5 will add real-time activity logging.</p>
         </div>
       </div>
     </div>

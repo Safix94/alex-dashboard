@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
 import Navigation from "@/components/Navigation";
-import { PresenceContainer } from "@/components/PresenceContainer";
+import { Sidebar } from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Alex Dashboard",
@@ -19,10 +19,17 @@ export default function RootLayout({
       <body>
         <Providers>
           <div className="min-h-screen bg-background text-foreground">
+            {/* Navigation (top bar) */}
             <Navigation />
-            <PresenceContainer />
-            <main className="flex-1 ml-[200px]">
-              {children}
+
+            {/* Sidebar (left) */}
+            <Sidebar />
+
+            {/* Main Content */}
+            <main className="ml-[200px] mt-16 flex flex-col flex-1">
+              <div className="flex-1 p-6">
+                {children}
+              </div>
             </main>
           </div>
         </Providers>

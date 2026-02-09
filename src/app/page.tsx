@@ -1,3 +1,5 @@
+import { TaskBoard } from "@/components/TaskBoard";
+
 export default function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -10,26 +12,7 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* Status Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-foreground">Status</h3>
-            <p className="text-muted-foreground text-sm mt-1">System status will appear here</p>
-            <div className="mt-4 text-3xl font-bold text-primary">—</div>
-          </div>
-
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-foreground">Tasks</h3>
-            <p className="text-muted-foreground text-sm mt-1">Pending tasks from OpenClaw</p>
-            <div className="mt-4 text-3xl font-bold text-secondary">0</div>
-          </div>
-
-          <div className="bg-card border border-border rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-foreground">Uptime</h3>
-            <p className="text-muted-foreground text-sm mt-1">System availability</p>
-            <div className="mt-4 text-3xl font-bold text-accent">—</div>
-          </div>
-        </div>
+        <TaskBoard />
 
         {/* Recent Activity */}
         <div className="bg-card border border-border rounded-lg p-6">

@@ -35,14 +35,14 @@ export default function Dashboard() {
         </div>
 
         {/* Main Grid: Tasks + Notes */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Task Board (2/3 width) */}
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {/* Task Board (full on mobile, 2/3 on desktop) */}
+          <div className="md:col-span-1 lg:col-span-2">
             <TaskBoard />
           </div>
 
-          {/* Notes Panel (1/3 width) */}
-          <div className="lg:col-span-1">
+          {/* Notes Panel (full on mobile, 1/3 on desktop) */}
+          <div className="md:col-span-1 lg:col-span-1">
             <NotesPanel />
           </div>
         </div>

@@ -30,7 +30,9 @@ export function TaskCard({
                 ? "To Do"
                 : column === "inprogress"
                   ? "In Progress"
-                  : "Done"}
+                  : column === "done"
+                    ? "Done"
+                    : "Archive"}
             </Badge>
             {due ? (
               <div className="text-xs text-muted-foreground">Due {due}</div>

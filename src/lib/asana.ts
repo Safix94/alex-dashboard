@@ -12,6 +12,7 @@ type SectionMap = {
   todo: { gid: string; name: string };
   inprogress: { gid: string; name: string };
   done: { gid: string; name: string };
+  archive: { gid: string; name: string };
 };
 
 type CacheEntry = {
@@ -72,11 +73,18 @@ export async function getProjectSectionMap(projectGid: string): Promise<SectionM
   const todo = matchSection(sections, ["Nog te doen", "To Do", "Todo"]);
   const inprogress = matchSection(sections, ["Bezig", "In Progress"]);
   const done = matchSection(sections, ["Done", "Klaar", "Afgewerkt"]);
+  const archive = matchSection(sections, [
+    "Niet doen",
+    "Niet doen (afgekeurd)",
+    "Afgekeurd",
+    "Archive",
+    "Archief",
+  ]);
 
-  if (!todo || !inprogress || !done) {
+  if (!todo || !inprogress || !done || !archive) {
     const names = sections.map((s) => s.name).join(", ");
     throw new Error(
-      `Required Asana sections not found. Found sections: [${names}]. Expected names include: todo=[Nog te doen|To Do|Todo], inprogress=[Bezig|In Progress], done=[Done|Klaar|Afgewerkt]`
+      `Required Asana sections not found. Found sections: [${names}]. Expected names include: todo=[Nog te doen|To Do|Todo], inprogress=[Bezig|In Progress], done=[Done|Klaar|Afgewerkt], archive=[Niet doen|Niet doen (afgekeurd)|Afgekeurd|Archive|Archief]`
     );
   }
 
@@ -84,6 +92,7 @@ export async function getProjectSectionMap(projectGid: string): Promise<SectionM
     todo: { gid: todo.gid, name: todo.name },
     inprogress: { gid: inprogress.gid, name: inprogress.name },
     done: { gid: done.gid, name: done.name },
+    archive: { gid: archive.gid, name: archive.name },
   };
 
   sectionCache = { map, expiresAt: now + SECTION_CACHE_TTL_MS };
@@ -93,7 +102,7 @@ export async function getProjectSectionMap(projectGid: string): Promise<SectionM
 export async function listTasksBySection(params: {
   projectGid: string;
   sectionMap: SectionMap;
-}): Promise<{ todo: AsanaTask[]; inprogress: AsanaTask[]; done: AsanaTask[] }> {
+}): Promise<{ todo: AsanaTask[]; inprogress: AsanaTask[]; done: AsanaTask[]; archive: AsanaTask[] }> {
   const { projectGid, sectionMap } = params;
 
   const fields = [
@@ -116,10 +125,11 @@ export async function listTasksBySection(params: {
     return res.data ?? [];
   };
 
-  const [todo, inprogress, done] = await Promise.all([
+  const [todo, inprogress, done, archive] = await Promise.all([
     fetchSectionTasks(sectionMap.todo.gid),
     fetchSectionTasks(sectionMap.inprogress.gid),
     fetchSectionTasks(sectionMap.done.gid),
+    fetchSectionTasks(sectionMap.archive.gid),
   ]);
 
   // Ensure tasks truly belong to the project (just in case)
@@ -132,6 +142,7 @@ export async function listTasksBySection(params: {
     todo: filterByProject(todo),
     inprogress: filterByProject(inprogress),
     done: filterByProject(done),
+    archive: filterByProject(archive),
   };
 }
 

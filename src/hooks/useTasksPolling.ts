@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type BoardColumnId = "todo" | "inprogress" | "done";
+export type BoardColumnId = "todo" | "inprogress" | "done" | "archive";
 
 export type BoardTask = {
   gid: string;

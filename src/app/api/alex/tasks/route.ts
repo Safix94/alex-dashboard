@@ -7,10 +7,10 @@ import {
 
 const PROJECT_GID = "1213167484617812";
 
-export type BoardColumnId = "todo" | "inprogress" | "done";
+export type BoardColumnId = "todo" | "inprogress" | "done" | "archive";
 
 function parseColumnId(v: unknown): BoardColumnId {
-  if (v === "todo" || v === "inprogress" || v === "done") return v;
+  if (v === "todo" || v === "inprogress" || v === "done" || v === "archive") return v;
   throw new Error("Invalid column id");
 }
 

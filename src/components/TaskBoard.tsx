@@ -27,6 +27,7 @@ const columns: Array<{ id: BoardColumnId; title: string }> = [
   { id: "todo", title: "To Do" },
   { id: "inprogress", title: "In Progress" },
   { id: "done", title: "Done" },
+  { id: "archive", title: "Archive" },
 ];
 
 function Column({
@@ -95,6 +96,7 @@ export function TaskBoard() {
         todo: [],
         inprogress: [],
         done: [],
+        archive: [],
       }
     );
   }, [data]);
@@ -190,7 +192,7 @@ export function TaskBoard() {
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           {columns.map((c) => (
             <Column
               key={c.id}
